@@ -1,5 +1,14 @@
+import { Input } from '@mui/material';
+
 const NewTodo = () => (
-  <input type="text" placeholder="Enter TODO..." aria-label="new todo" />
+  <Input
+    placeholder="Enter TODO..."
+    slotProps={{
+      input: {
+        'aria-label': 'new todo',
+      },
+    }}
+  />
 );
 
 export default NewTodo;
