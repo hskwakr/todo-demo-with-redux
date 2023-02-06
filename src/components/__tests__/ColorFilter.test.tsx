@@ -24,4 +24,21 @@ describe('ColorFilter Component Behavior', () => {
     await user.click(target);
     expect(target).toHaveAttribute('disabled');
   });
+
+  test('The disabled button turns not disabled after clicked other one', async () => {
+    const user = userEvent.setup();
+    render(<ColorFilter />);
+
+    const buttons = await screen.findAllByRole('button');
+
+    const target = buttons[0];
+    const other = buttons[1];
+
+    await user.click(target);
+    expect(target).toHaveAttribute('disabled');
+
+    await user.click(other);
+    expect(other).toHaveAttribute('disabled');
+    expect(target).not.toHaveAttribute('disabled');
+  });
 });
