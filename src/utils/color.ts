@@ -1,3 +1,3 @@
 export const colors = ['gray', 'red', 'blue', 'green'] as const;
 
-export type Color = (typeof colors)[number];
+export type ColorType = (typeof colors)[number];

@@ -2,10 +2,10 @@ import { useState } from 'react';
 import Grid from '@mui/material/Grid';
 import Button from '@mui/material/Button';
 import ColorBox from './ColorBox';
-import { Color, colors } from '../utils/color';
+import { ColorType, colors } from '../utils/color';
 
 const ColorFilter = () => {
-  const [color, setColor] = useState<Color | null>(null);
+  const [color, setColor] = useState<ColorType | null>(null);
 
   return (
     <Grid container spacing={2}>
