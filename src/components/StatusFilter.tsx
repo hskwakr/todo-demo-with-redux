@@ -7,11 +7,11 @@ const StatusFilter = () => {
   const [current, setCurrent] = useState<StatusType>(status.All);
 
   const renderedItems = createRenderedItems((key, value) => {
-    const selected = current === key;
+    const selected = current === value;
 
     return (
       <Grid item key={key}>
-        <Button disabled={selected} onClick={() => value && setCurrent(value)}>
+        <Button disabled={selected} onClick={() => setCurrent(value)}>
           {key}
         </Button>
       </Grid>
