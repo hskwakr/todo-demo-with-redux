@@ -17,6 +17,7 @@ const ColorSwitch = ({ initColor }: { initColor: ColorType }) => {
         setCurrentColor(c);
         setAnchorEl(null);
       }}
+      data-testid="color-switch-pop-elms"
     >
       <ColorBox color={c} />
     </Button>
@@ -29,7 +30,7 @@ const ColorSwitch = ({ initColor }: { initColor: ColorType }) => {
         onClick={e => {
           setAnchorEl(anchorEl ? null : e.currentTarget);
         }}
-        aria-label="color switch"
+        data-testid="color-switch"
       >
         <ColorBox color={currentColor} />
       </Button>

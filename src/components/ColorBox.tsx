@@ -11,7 +11,7 @@ const ColorBox = ({ color }: ColorBoxProps) => (
       height: 30,
       backgroundColor: color,
     }}
-    aria-label="color box"
+    data-testid="color-box"
   />
 );
 
