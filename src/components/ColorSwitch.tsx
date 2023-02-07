@@ -17,6 +17,7 @@ const ColorSwitch = ({ initColor }: { initColor: ColorType }) => {
         setCurrentColor(c);
         setAnchorEl(null);
       }}
+      data-testid="color-switch-pop-elms"
     >
       <ColorBox color={c} />
     </Button>
