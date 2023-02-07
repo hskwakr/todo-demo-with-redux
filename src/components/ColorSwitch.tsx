@@ -29,7 +29,7 @@ const ColorSwitch = ({ initColor }: { initColor: ColorType }) => {
         onClick={e => {
           setAnchorEl(anchorEl ? null : e.currentTarget);
         }}
-        aria-label="color switch"
+        data-testid="color-switch"
       >
         <ColorBox color={currentColor} />
       </Button>

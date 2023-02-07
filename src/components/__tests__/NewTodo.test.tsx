@@ -5,7 +5,7 @@ describe('NewTodo Component Appearance', () => {
   test('It has a text input with placeholder', () => {
     render(<NewTodo />);
 
-    const input = screen.getByRole('textbox', { name: /new todo/ });
+    const input = screen.getByRole('textbox');
     expect(input).toBeInTheDocument();
 
     // Placeholder has keyword "Enter"

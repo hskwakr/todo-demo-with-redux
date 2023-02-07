@@ -5,7 +5,7 @@ describe('ColorSwitch Component Appearance', () => {
   test('It has a prop to specify background color', () => {
     render(<ColorSwitch initColor="red" />);
 
-    const switchButton = screen.getByRole('button', { name: /color switch/ });
+    const switchButton = screen.getByTestId('color-switch');
     expect(switchButton).toBeInTheDocument();
   });
 });
