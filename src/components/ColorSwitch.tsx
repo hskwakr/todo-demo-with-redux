@@ -3,7 +3,12 @@ import { Popper, Button } from '@mui/material';
 import ColorBox from './ColorBox';
 import { ColorType, colors } from '../utils/color';
 
-const ColorSwitch = ({ initColor }: { initColor: ColorType }) => {
+interface ColorSwitchProps {
+  initColor: ColorType;
+  onColorUpdated: (color: ColorType) => void;
+}
+
+const ColorSwitch = ({ initColor, onColorUpdated }: ColorSwitchProps) => {
   const [currentColor, setCurrentColor] = useState<ColorType>(initColor);
   const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
 
@@ -15,6 +20,7 @@ const ColorSwitch = ({ initColor }: { initColor: ColorType }) => {
       key={c}
       onClick={() => {
         setCurrentColor(c);
+        onColorUpdated(c);
         setAnchorEl(null);
       }}
       data-testid="color-switch-pop-elms"
