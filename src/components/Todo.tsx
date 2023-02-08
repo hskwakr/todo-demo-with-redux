@@ -1,4 +1,5 @@
-import { Button, Grid, Typography } from '@mui/material';
+import { Button, Checkbox, Grid, Typography } from '@mui/material';
+import DeleteIcon from '@mui/icons-material/Delete';
 import { TodoType } from '../utils/todo';
 import ColorSwitch from './ColorSwitch';
 
@@ -10,23 +11,23 @@ const Todo = ({ todo }: TodoProps) => {
   const { name, color, completed } = todo;
 
   return (
-    <Grid container spacing={2}>
+    <Grid container spacing={1} justifyContent="center" alignItems="center">
       <Grid item>
-        <Button>{completed}</Button>
+        <Checkbox checked={completed} />
       </Grid>
 
       <Grid item>
-        <Typography>{name}</Typography>
+        <Typography width={200}>{name}</Typography>
+      </Grid>
+
+      <Grid item>
+        <ColorSwitch initColor={color} onColorUpdated={() => {}} />
       </Grid>
 
       <Grid item>
         <Button>
-          <ColorSwitch initColor={color} onColorUpdated={() => {}} />
+          <DeleteIcon />
         </Button>
-      </Grid>
-
-      <Grid item>
-        <Button>Delete</Button>
       </Grid>
     </Grid>
   );
