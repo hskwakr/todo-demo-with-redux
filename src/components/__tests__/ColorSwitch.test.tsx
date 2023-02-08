@@ -2,9 +2,11 @@ import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import ColorSwitch from '../ColorSwitch';
 
+const fn = jest.fn();
+
 describe('ColorSwitch Component Appearance', () => {
   test('It has a button at the beginning', () => {
-    render(<ColorSwitch initColor="red" />);
+    render(<ColorSwitch initColor="red" onColorUpdated={fn} />);
 
     const switchButton = screen.getByTestId('color-switch');
     expect(switchButton).toBeInTheDocument();
@@ -14,7 +16,7 @@ describe('ColorSwitch Component Appearance', () => {
 describe('ColorSwitch Component Behavior', () => {
   test('It shows buttons after click a button', async () => {
     const user = userEvent.setup();
-    render(<ColorSwitch initColor="red" />);
+    render(<ColorSwitch initColor="red" onColorUpdated={fn} />);
 
     const switchButton = screen.getByTestId('color-switch');
 
@@ -26,7 +28,7 @@ describe('ColorSwitch Component Behavior', () => {
 
   test('The buttons turns out after click a button again', async () => {
     const user = userEvent.setup();
-    render(<ColorSwitch initColor="red" />);
+    render(<ColorSwitch initColor="red" onColorUpdated={fn} />);
 
     const switchButton = screen.getByTestId('color-switch');
 
@@ -39,7 +41,7 @@ describe('ColorSwitch Component Behavior', () => {
 
   test('The buttons turns out after click a button in the pop', async () => {
     const user = userEvent.setup();
-    render(<ColorSwitch initColor="red" />);
+    render(<ColorSwitch initColor="red" onColorUpdated={fn} />);
 
     const switchButton = screen.getByTestId('color-switch');
 
