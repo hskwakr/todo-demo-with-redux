@@ -12,19 +12,19 @@ const Todo = ({ todo }: TodoProps) => {
 
   return (
     <Grid container spacing={1} justifyContent="center" alignItems="center">
-      <Grid item>
+      <Grid item xs={1}>
         <Checkbox checked={completed} />
       </Grid>
 
-      <Grid item>
-        <Typography width={200}>{name}</Typography>
+      <Grid item xs={2}>
+        <Typography>{name}</Typography>
       </Grid>
 
-      <Grid item>
+      <Grid item xs={1}>
         <ColorSwitch initColor={color} onColorUpdated={() => {}} />
       </Grid>
 
-      <Grid item>
+      <Grid item xs={1}>
         <Button data-testid="todo-delete">
           <DeleteIcon />
         </Button>
