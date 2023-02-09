@@ -25,7 +25,7 @@ const Todo = ({ todo }: TodoProps) => {
       </Grid>
 
       <Grid item>
-        <Button>
+        <Button data-testid="todo-delete">
           <DeleteIcon />
         </Button>
       </Grid>

@@ -19,6 +19,21 @@ describe('Todo Component Appearance', () => {
     expect(name).toBeInTheDocument();
   });
 
+  test('It has a button to delete', () => {
+    render(
+      <Todo
+        todo={{
+          name: todoName,
+          color: 'red',
+          completed: false,
+        }}
+      />
+    );
+
+    const deleteButton = screen.getByTestId('todo-delete');
+    expect(deleteButton).toBeInTheDocument();
+  });
+
   test('It has a checkbox', () => {
     render(
       <Todo
