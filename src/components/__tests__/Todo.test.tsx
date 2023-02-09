@@ -8,6 +8,7 @@ describe('Todo Component Appearance', () => {
     render(
       <Todo
         todo={{
+          id: '1',
           name: todoName,
           color: 'red',
           completed: false,
@@ -23,6 +24,7 @@ describe('Todo Component Appearance', () => {
     render(
       <Todo
         todo={{
+          id: '1',
           name: todoName,
           color: 'red',
           completed: false,
@@ -38,6 +40,7 @@ describe('Todo Component Appearance', () => {
     render(
       <Todo
         todo={{
+          id: '1',
           name: todoName,
           color: 'red',
           completed: false,
@@ -53,6 +56,7 @@ describe('Todo Component Appearance', () => {
     render(
       <Todo
         todo={{
+          id: '1',
           name: todoName,
           color: 'red',
           completed: false,
@@ -68,6 +72,7 @@ describe('Todo Component Appearance', () => {
     render(
       <Todo
         todo={{
+          id: '1',
           name: todoName,
           color: 'red',
           completed: true,
