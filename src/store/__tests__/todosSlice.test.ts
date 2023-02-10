@@ -1,4 +1,4 @@
-import reducer, { todoAdded } from '../todosSlice';
+import reducer, { todoAdded, todoDeleted } from '../todosSlice';
 
 describe('todosSlice reducer', () => {
   test('It returns the initial state', () => {
@@ -93,6 +93,55 @@ describe('todosSlice action', () => {
       },
       todoAdded('Test something', 'red')
     );
+
+    expect(got).toEqual(want);
+  });
+
+  test('todoDeleted remove a todo from existing list', () => {
+    const want = {
+      entities: {
+        '0': {
+          id: '0',
+          name: 'Test something',
+          color: 'gray',
+          completed: false,
+        },
+      },
+      ids: ['0'],
+    };
+
+    const got = reducer(
+      {
+        entities: {
+          '0': {
+            id: '0',
+            name: 'Test something',
+            color: 'gray',
+            completed: false,
+          },
+          '1': {
+            id: '1',
+            name: 'Do something',
+            color: 'red',
+            completed: false,
+          },
+        },
+        ids: ['0', '1'],
+      },
+      todoDeleted('1')
+    );
+
+    expect(got).toEqual(want);
+  });
+
+  test('todoDeleted remove a todo from empty list', () => {
+    const want = {
+      entities: {},
+      ids: [],
+    };
+
+    const got = reducer(undefined, todoDeleted('0'));
+
     expect(got).toEqual(want);
   });
 });
