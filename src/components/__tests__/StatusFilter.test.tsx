@@ -1,12 +1,12 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { status } from '../../utils/status';
+import { Status } from '../../utils/status';
 import StatusFilter from '../StatusFilter';
 
 describe('StatusFilter Component Appearance', () => {
   test('There are as many buttons as status types', async () => {
     render(<StatusFilter />);
-    const { length } = Object.keys(status);
+    const { length } = Object.keys(Status);
 
     const buttons = await screen.findAllByRole('button');
     expect(buttons.length).toBe(length);

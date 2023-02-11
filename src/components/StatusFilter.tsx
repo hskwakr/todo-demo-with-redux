@@ -1,10 +1,10 @@
 import { useState } from 'react';
 import Grid from '@mui/material/Grid';
 import Button from '@mui/material/Button';
-import { StatusType, createRenderedItems, status } from '../utils/status';
+import { StatusType, createRenderedItems, Status } from '../utils/status';
 
 const StatusFilter = () => {
-  const [current, setCurrent] = useState<StatusType>(status.All);
+  const [current, setCurrent] = useState<StatusType>(Status.All);
 
   const renderedItems = createRenderedItems((key, value) => {
     const selected = current === value;
