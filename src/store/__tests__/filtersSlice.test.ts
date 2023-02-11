@@ -1,7 +1,7 @@
 import reducer, {
   filterColorsModified,
   filterStatusUpdated,
-  filtersSelector,
+  selectFilters,
 } from '../filtersSlice';
 
 describe('filtersSlice reducer', () => {
@@ -81,13 +81,13 @@ describe('filtersSlice action', () => {
 });
 
 describe('filtersSlice selector', () => {
-  test('filtersSelector returns state of filters', () => {
+  test('selectFilters returns state of filters', () => {
     const want = {
       colors: [],
       status: 'all',
     };
 
-    const got = filtersSelector({
+    const got = selectFilters({
       todos: {
         entities: {},
         ids: [],
