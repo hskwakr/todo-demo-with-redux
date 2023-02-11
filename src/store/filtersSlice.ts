@@ -1,6 +1,6 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { ColorType } from '../utils/color';
-import { StatusType, status } from '../utils/status';
+import { StatusType, Status } from '../utils/status';
 
 type FiltersType = {
   status: StatusType;
@@ -8,14 +8,28 @@ type FiltersType = {
 };
 
 const initialState: FiltersType = {
-  status: status.All,
+  status: Status.All,
   colors: [],
 };
 
 const filtersSlice = createSlice({
   name: 'filters',
   initialState,
-  reducers: {},
+  reducers: {
+    filterStatusUpdated: {
+      reducer(state, action: PayloadAction<StatusType>) {
+        const status = action.payload;
+        state.status = status;
+      },
+      prepare(status: StatusType) {
+        return {
+          payload: status,
+        };
+      },
+    },
+  },
 });
 
 export default filtersSlice.reducer;
+
+export const { filterStatusUpdated } = filtersSlice.actions;
