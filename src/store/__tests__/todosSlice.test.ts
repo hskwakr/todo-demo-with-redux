@@ -103,17 +103,23 @@ describe('todosSlice action', () => {
     expect(got).toEqual(want);
   });
 
-  test('todoDeleted remove a todo from existing list', () => {
+  test('todoDeleted remove a last todo from existing list', () => {
     const want = {
       entities: {
         '0': {
           id: '0',
-          name: 'Test something',
+          name: 'Test something 0',
           color: 'gray',
           completed: false,
         },
+        '1': {
+          id: '1',
+          name: 'Do something 1',
+          color: 'red',
+          completed: false,
+        },
       },
-      ids: ['0'],
+      ids: ['0', '1'],
     };
 
     const got = reducer(
@@ -121,32 +127,125 @@ describe('todosSlice action', () => {
         entities: {
           '0': {
             id: '0',
-            name: 'Test something',
+            name: 'Test something 0',
             color: 'gray',
             completed: false,
           },
           '1': {
             id: '1',
-            name: 'Do something',
+            name: 'Do something 1',
+            color: 'red',
+            completed: false,
+          },
+          '2': {
+            id: '2',
+            name: 'Do something 2',
             color: 'red',
             completed: false,
           },
         },
-        ids: ['0', '1'],
+        ids: ['0', '1', '2'],
       },
-      todoDeleted('1')
+      todoDeleted('2')
     );
 
     expect(got).toEqual(want);
   });
 
-  test('todoDeleted remove a todo from empty list', () => {
+  test('todoDeleted remove a first todo from existing list', () => {
     const want = {
-      entities: {},
-      ids: [],
+      entities: {
+        '1': {
+          id: '1',
+          name: 'Do something 1',
+          color: 'red',
+          completed: false,
+        },
+        '2': {
+          id: '2',
+          name: 'Do something 2',
+          color: 'red',
+          completed: false,
+        },
+      },
+      ids: ['1', '2'],
     };
 
-    const got = reducer(undefined, todoDeleted('0'));
+    const got = reducer(
+      {
+        entities: {
+          '0': {
+            id: '0',
+            name: 'Test something 0',
+            color: 'gray',
+            completed: false,
+          },
+          '1': {
+            id: '1',
+            name: 'Do something 1',
+            color: 'red',
+            completed: false,
+          },
+          '2': {
+            id: '2',
+            name: 'Do something 2',
+            color: 'red',
+            completed: false,
+          },
+        },
+        ids: ['0', '1', '2'],
+      },
+      todoDeleted('0')
+    );
+
+    expect(got).toEqual(want);
+  });
+
+  test('todoDeleted remove a middle todo from existing list', () => {
+    const want = {
+      entities: {
+        '0': {
+          id: '0',
+          name: 'Test something 0',
+          color: 'gray',
+          completed: false,
+        },
+        '2': {
+          id: '2',
+          name: 'Do something 2',
+          color: 'red',
+          completed: false,
+        },
+      },
+      ids: ['0', '2'],
+    };
+
+    const got = reducer(
+      {
+        entities: {
+          '0': {
+            id: '0',
+            name: 'Test something 0',
+            color: 'gray',
+            completed: false,
+          },
+          '1': {
+            id: '1',
+            name: 'Do something 1',
+            color: 'red',
+            completed: false,
+          },
+          '2': {
+            id: '2',
+            name: 'Do something 2',
+            color: 'red',
+            completed: false,
+          },
+        },
+        ids: ['0', '1', '2'],
+      },
+      todoDeleted('1')
+    );
 
     expect(got).toEqual(want);
   });
