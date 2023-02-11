@@ -138,12 +138,19 @@ export const selectFilteredTodos = createSelector(
   selectAllTodos,
   selectFilters,
   (todos, filters) => {
-    const { status } = filters;
+    const { status, colors } = filters;
 
     const isAll = status === Status.All;
-    if (isAll) return todos;
-
     const isCompleted = status === Status.Completed;
-    return todos.filter(todo => todo.completed === isCompleted);
+    const colorsNoMatch = colors.length === 0;
+
+    if (isAll && colorsNoMatch) return todos;
+
+    return todos.filter(todo => {
+      const statusMatch = isAll || todo.completed === isCompleted;
+      const colorsMatch = colorsNoMatch || colors.includes(todo.color);
+
+      return statusMatch && colorsMatch;
+    });
   }
 );
