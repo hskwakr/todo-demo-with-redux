@@ -38,7 +38,8 @@ const todosSlice = createSlice({
 
     todoDeleted: {
       reducer(state, action: PayloadAction<string>) {
-        todosAdapter.removeOne(state, action.payload);
+        const id = action.payload;
+        todosAdapter.removeOne(state, id);
       },
       prepare(id: string) {
         return {
