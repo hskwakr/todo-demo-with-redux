@@ -1,6 +1,10 @@
 import reducer, {
   manyTodosDeleted,
   manyTodosToggled,
+  selectAllTodos,
+  selectFilteredTodos,
+  selectFilteredTodosById,
+  selectTodoById,
   todoAdded,
   todoColorChanged,
   todoDeleted,
@@ -536,6 +540,495 @@ describe('todosSlice action', () => {
       },
       manyTodosToggled(['1', '2'], false)
     );
+
+    expect(got).toEqual(want);
+  });
+});
+
+describe('todosSlice selector', () => {
+  test('selectAllTodos returns all todos in the state', () => {
+    const want = [
+      {
+        id: '0',
+        name: 'Test something 0',
+        color: 'gray',
+        completed: false,
+      },
+      {
+        id: '1',
+        name: 'Test something 1',
+        color: 'gray',
+        completed: true,
+      },
+      {
+        id: '2',
+        name: 'Test something 2',
+        color: 'gray',
+        completed: false,
+      },
+    ];
+
+    const got = selectAllTodos({
+      entities: {
+        '0': {
+          id: '0',
+          name: 'Test something 0',
+          color: 'gray',
+          completed: false,
+        },
+        '1': {
+          id: '1',
+          name: 'Test something 1',
+          color: 'gray',
+          completed: true,
+        },
+        '2': {
+          id: '2',
+          name: 'Test something 2',
+          color: 'gray',
+          completed: false,
+        },
+      },
+      ids: ['0', '1', '2'],
+    });
+    expect(got).toEqual(want);
+  });
+
+  test('selectTodoById returns a todo specified by id', () => {
+    const want = {
+      id: '1',
+      name: 'Test something 1',
+      color: 'gray',
+      completed: true,
+    };
+
+    const got = selectTodoById(
+      {
+        entities: {
+          '0': {
+            id: '0',
+            name: 'Test something 0',
+            color: 'gray',
+            completed: false,
+          },
+          '1': {
+            id: '1',
+            name: 'Test something 1',
+            color: 'gray',
+            completed: true,
+          },
+          '2': {
+            id: '2',
+            name: 'Test something 2',
+            color: 'gray',
+            completed: false,
+          },
+        },
+        ids: ['0', '1', '2'],
+      },
+      '1'
+    );
+
+    expect(got).toEqual(want);
+  });
+
+  test('selectFilteredTodos returns all todo with all status', () => {
+    const want = [
+      {
+        id: '0',
+        name: 'Test something 0',
+        color: 'red',
+        completed: false,
+      },
+      {
+        id: '1',
+        name: 'Test something 1',
+        color: 'gray',
+        completed: true,
+      },
+      {
+        id: '2',
+        name: 'Test something 2',
+        color: 'green',
+        completed: false,
+      },
+    ];
+
+    const got = selectFilteredTodos({
+      filters: { colors: [], status: 'all' },
+      todos: {
+        entities: {
+          '0': {
+            id: '0',
+            name: 'Test something 0',
+            color: 'red',
+            completed: false,
+          },
+          '1': {
+            id: '1',
+            name: 'Test something 1',
+            color: 'gray',
+            completed: true,
+          },
+          '2': {
+            id: '2',
+            name: 'Test something 2',
+            color: 'green',
+            completed: false,
+          },
+        },
+        ids: ['0', '1', '2'],
+      },
+      entities: {
+        '0': {
+          id: '0',
+          name: 'Test something 0',
+          color: 'red',
+          completed: false,
+        },
+        '1': {
+          id: '1',
+          name: 'Test something 1',
+          color: 'gray',
+          completed: true,
+        },
+        '2': {
+          id: '2',
+          name: 'Test something 2',
+          color: 'green',
+          completed: false,
+        },
+      },
+      ids: ['0', '1', '2'],
+    });
+
+    expect(got).toEqual(want);
+  });
+
+  test('selectFilteredTodos returns uncompleted todos with active status', () => {
+    const want = [
+      {
+        id: '0',
+        name: 'Test something 0',
+        color: 'red',
+        completed: false,
+      },
+      {
+        id: '2',
+        name: 'Test something 2',
+        color: 'green',
+        completed: false,
+      },
+    ];
+
+    const got = selectFilteredTodos({
+      filters: { colors: [], status: 'active' },
+      todos: {
+        entities: {
+          '0': {
+            id: '0',
+            name: 'Test something 0',
+            color: 'red',
+            completed: false,
+          },
+          '1': {
+            id: '1',
+            name: 'Test something 1',
+            color: 'gray',
+            completed: true,
+          },
+          '2': {
+            id: '2',
+            name: 'Test something 2',
+            color: 'green',
+            completed: false,
+          },
+        },
+        ids: ['0', '1', '2'],
+      },
+      entities: {
+        '0': {
+          id: '0',
+          name: 'Test something 0',
+          color: 'red',
+          completed: false,
+        },
+        '1': {
+          id: '1',
+          name: 'Test something 1',
+          color: 'gray',
+          completed: true,
+        },
+        '2': {
+          id: '2',
+          name: 'Test something 2',
+          color: 'green',
+          completed: false,
+        },
+      },
+      ids: ['0', '1', '2'],
+    });
+
+    expect(got).toEqual(want);
+  });
+
+  test('selectFilteredTodos returns completed todos with completed status', () => {
+    const want = [
+      {
+        id: '1',
+        name: 'Test something 1',
+        color: 'gray',
+        completed: true,
+      },
+    ];
+
+    const got = selectFilteredTodos({
+      filters: { colors: [], status: 'completed' },
+      todos: {
+        entities: {
+          '0': {
+            id: '0',
+            name: 'Test something 0',
+            color: 'red',
+            completed: false,
+          },
+          '1': {
+            id: '1',
+            name: 'Test something 1',
+            color: 'gray',
+            completed: true,
+          },
+          '2': {
+            id: '2',
+            name: 'Test something 2',
+            color: 'green',
+            completed: false,
+          },
+        },
+        ids: ['0', '1', '2'],
+      },
+      entities: {
+        '0': {
+          id: '0',
+          name: 'Test something 0',
+          color: 'red',
+          completed: false,
+        },
+        '1': {
+          id: '1',
+          name: 'Test something 1',
+          color: 'gray',
+          completed: true,
+        },
+        '2': {
+          id: '2',
+          name: 'Test something 2',
+          color: 'green',
+          completed: false,
+        },
+      },
+      ids: ['0', '1', '2'],
+    });
+
+    expect(got).toEqual(want);
+  });
+
+  test('selectFilteredTodos returns red colored todos with color filter', () => {
+    const want = [
+      {
+        id: '0',
+        name: 'Test something 0',
+        color: 'red',
+        completed: false,
+      },
+    ];
+
+    const got = selectFilteredTodos({
+      filters: { colors: ['red'], status: 'all' },
+      todos: {
+        entities: {
+          '0': {
+            id: '0',
+            name: 'Test something 0',
+            color: 'red',
+            completed: false,
+          },
+          '1': {
+            id: '1',
+            name: 'Test something 1',
+            color: 'gray',
+            completed: true,
+          },
+          '2': {
+            id: '2',
+            name: 'Test something 2',
+            color: 'green',
+            completed: false,
+          },
+        },
+        ids: ['0', '1', '2'],
+      },
+      entities: {
+        '0': {
+          id: '0',
+          name: 'Test something 0',
+          color: 'red',
+          completed: false,
+        },
+        '1': {
+          id: '1',
+          name: 'Test something 1',
+          color: 'gray',
+          completed: true,
+        },
+        '2': {
+          id: '2',
+          name: 'Test something 2',
+          color: 'green',
+          completed: false,
+        },
+      },
+      ids: ['0', '1', '2'],
+    });
+
+    expect(got).toEqual(want);
+  });
+
+  test('selectFilteredTodos returns red colored todos and completed with filters', () => {
+    const want = [
+      {
+        id: '0',
+        name: 'Test something 0',
+        color: 'red',
+        completed: true,
+      },
+    ];
+
+    const got = selectFilteredTodos({
+      filters: { colors: ['red'], status: 'completed' },
+      todos: {
+        entities: {
+          '0': {
+            id: '0',
+            name: 'Test something 0',
+            color: 'red',
+            completed: true,
+          },
+          '1': {
+            id: '1',
+            name: 'Test something 1',
+            color: 'gray',
+            completed: true,
+          },
+          '2': {
+            id: '2',
+            name: 'Test something 2',
+            color: 'green',
+            completed: false,
+          },
+          '3': {
+            id: '3',
+            name: 'Test something 3',
+            color: 'red',
+            completed: false,
+          },
+        },
+        ids: ['0', '1', '2', '3'],
+      },
+      entities: {
+        '0': {
+          id: '0',
+          name: 'Test something 0',
+          color: 'red',
+          completed: true,
+        },
+        '1': {
+          id: '1',
+          name: 'Test something 1',
+          color: 'gray',
+          completed: true,
+        },
+        '2': {
+          id: '2',
+          name: 'Test something 2',
+          color: 'green',
+          completed: false,
+        },
+        '3': {
+          id: '3',
+          name: 'Test something 3',
+          color: 'red',
+          completed: false,
+        },
+      },
+      ids: ['0', '1', '2', '3'],
+    });
+
+    expect(got).toEqual(want);
+  });
+
+  test('selectFilteredTodosById returns id of filtered todos', () => {
+    const want = ['0'];
+
+    const got = selectFilteredTodosById({
+      filters: { colors: ['red'], status: 'completed' },
+      todos: {
+        entities: {
+          '0': {
+            id: '0',
+            name: 'Test something 0',
+            color: 'red',
+            completed: true,
+          },
+          '1': {
+            id: '1',
+            name: 'Test something 1',
+            color: 'gray',
+            completed: true,
+          },
+          '2': {
+            id: '2',
+            name: 'Test something 2',
+            color: 'green',
+            completed: false,
+          },
+          '3': {
+            id: '3',
+            name: 'Test something 3',
+            color: 'red',
+            completed: false,
+          },
+        },
+        ids: ['0', '1', '2', '3'],
+      },
+      entities: {
+        '0': {
+          id: '0',
+          name: 'Test something 0',
+          color: 'red',
+          completed: true,
+        },
+        '1': {
+          id: '1',
+          name: 'Test something 1',
+          color: 'gray',
+          completed: true,
+        },
+        '2': {
+          id: '2',
+          name: 'Test something 2',
+          color: 'green',
+          completed: false,
+        },
+        '3': {
+          id: '3',
+          name: 'Test something 3',
+          color: 'red',
+          completed: false,
+        },
+      },
+      ids: ['0', '1', '2', '3'],
+    });
 
     expect(got).toEqual(want);
   });

@@ -71,4 +71,4 @@ export default filtersSlice.reducer;
 export const { filterStatusUpdated, filterColorsModified } =
   filtersSlice.actions;
 
-export const filtersSelector = (state: RootState) => state.filters;
+export const selectFilters = (state: RootState) => state.filters;

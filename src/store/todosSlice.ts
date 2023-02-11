@@ -1,10 +1,13 @@
 import {
   PayloadAction,
   createEntityAdapter,
+  createSelector,
   createSlice,
 } from '@reduxjs/toolkit';
 import { TodoType } from '../utils/todo';
 import { ColorType } from '../utils/color';
+import { selectFilters } from './filtersSlice';
+import { Status } from '../utils/status';
 
 const todosAdapter = createEntityAdapter<TodoType>();
 const initialState = todosAdapter.getInitialState();
@@ -127,3 +130,32 @@ export const {
   manyTodosDeleted,
   manyTodosToggled,
 } = todosSlice.actions;
+
+export const { selectAll: selectAllTodos, selectById: selectTodoById } =
+  todosAdapter.getSelectors();
+
+export const selectFilteredTodos = createSelector(
+  selectAllTodos,
+  selectFilters,
+  (todos, filters) => {
+    const { status, colors } = filters;
+
+    const isAll = status === Status.All;
+    const isCompleted = status === Status.Completed;
+    const colorsNoMatch = colors.length === 0;
+
+    if (isAll && colorsNoMatch) return todos;
+
+    return todos.filter(todo => {
+      const statusMatch = isAll || todo.completed === isCompleted;
+      const colorsMatch = colorsNoMatch || colors.includes(todo.color);
+
+      return statusMatch && colorsMatch;
+    });
+  }
+);
+
+export const selectFilteredTodosById = createSelector(
+  selectFilteredTodos,
+  todos => todos.map(todo => todo.id)
+);
