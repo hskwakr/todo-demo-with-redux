@@ -93,6 +93,26 @@ const todosSlice = createSlice({
         };
       },
     },
+
+    manyTodosToggled: {
+      reducer(
+        state,
+        action: PayloadAction<{ ids: string[]; completed: boolean }>
+      ) {
+        const { ids, completed } = action.payload;
+        const updates = ids.map(id => ({
+          id,
+          changes: { completed },
+        }));
+
+        todosAdapter.updateMany(state, updates);
+      },
+      prepare(ids: string[], completed: boolean) {
+        return {
+          payload: { ids, completed },
+        };
+      },
+    },
   },
 });
 
@@ -104,4 +124,5 @@ export const {
   todoToggled,
   todoColorChanged,
   manyTodosDeleted,
+  manyTodosToggled,
 } = todosSlice.actions;

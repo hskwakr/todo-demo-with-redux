@@ -1,5 +1,6 @@
 import reducer, {
   manyTodosDeleted,
+  manyTodosToggled,
   todoAdded,
   todoColorChanged,
   todoDeleted,
@@ -424,6 +425,116 @@ describe('todosSlice action', () => {
         ids: ['0', '1', '2'],
       },
       manyTodosDeleted(['0', '1'])
+    );
+
+    expect(got).toEqual(want);
+  });
+
+  test('manyTodosToggled toggles first two todos to true in the list', () => {
+    const want = {
+      entities: {
+        '0': {
+          id: '0',
+          name: 'Test something 0',
+          color: 'gray',
+          completed: true,
+        },
+        '1': {
+          id: '1',
+          name: 'Test something 1',
+          color: 'gray',
+          completed: true,
+        },
+        '2': {
+          id: '2',
+          name: 'Test something 2',
+          color: 'gray',
+          completed: false,
+        },
+      },
+      ids: ['0', '1', '2'],
+    };
+
+    const got = reducer(
+      {
+        entities: {
+          '0': {
+            id: '0',
+            name: 'Test something 0',
+            color: 'gray',
+            completed: false,
+          },
+          '1': {
+            id: '1',
+            name: 'Test something 1',
+            color: 'gray',
+            completed: true,
+          },
+          '2': {
+            id: '2',
+            name: 'Test something 2',
+            color: 'gray',
+            completed: false,
+          },
+        },
+        ids: ['0', '1', '2'],
+      },
+      manyTodosToggled(['0', '1'], true)
+    );
+
+    expect(got).toEqual(want);
+  });
+
+  test('manyTodosToggled toggles last two todos to false in the list', () => {
+    const want = {
+      entities: {
+        '0': {
+          id: '0',
+          name: 'Test something 0',
+          color: 'gray',
+          completed: false,
+        },
+        '1': {
+          id: '1',
+          name: 'Test something 1',
+          color: 'gray',
+          completed: false,
+        },
+        '2': {
+          id: '2',
+          name: 'Test something 2',
+          color: 'gray',
+          completed: false,
+        },
+      },
+      ids: ['0', '1', '2'],
+    };
+
+    const got = reducer(
+      {
+        entities: {
+          '0': {
+            id: '0',
+            name: 'Test something 0',
+            color: 'gray',
+            completed: false,
+          },
+          '1': {
+            id: '1',
+            name: 'Test something 1',
+            color: 'gray',
+            completed: true,
+          },
+          '2': {
+            id: '2',
+            name: 'Test something 2',
+            color: 'gray',
+            completed: false,
+          },
+        },
+        ids: ['0', '1', '2'],
+      },
+      manyTodosToggled(['1', '2'], false)
     );
 
     expect(got).toEqual(want);
