@@ -62,9 +62,29 @@ const todosSlice = createSlice({
         };
       },
     },
+
+    todoColorChanged: {
+      reducer(state, action: PayloadAction<{ id: string; color: ColorType }>) {
+        const { id, color } = action.payload;
+        const todo = state.entities[id];
+
+        if (todo) {
+          todo.color = color;
+        }
+      },
+      prepare(id: string, color: ColorType) {
+        return {
+          payload: {
+            id,
+            color,
+          },
+        };
+      },
+    },
   },
 });
 
 export default todosSlice.reducer;
 
-export const { todoAdded, todoDeleted, todoToggled } = todosSlice.actions;
+export const { todoAdded, todoDeleted, todoToggled, todoColorChanged } =
+  todosSlice.actions;

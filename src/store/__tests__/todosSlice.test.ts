@@ -1,4 +1,9 @@
-import reducer, { todoAdded, todoDeleted, todoToggled } from '../todosSlice';
+import reducer, {
+  todoAdded,
+  todoColorChanged,
+  todoDeleted,
+  todoToggled,
+} from '../todosSlice';
 
 describe('todosSlice reducer', () => {
   test('It returns the initial state', () => {
@@ -202,6 +207,37 @@ describe('todosSlice action', () => {
         ids: ['0'],
       },
       todoToggled('0')
+    );
+
+    expect(got).toEqual(want);
+  });
+
+  test('todoColorChanged change color prop', () => {
+    const want = {
+      entities: {
+        '0': {
+          id: '0',
+          name: 'Test something',
+          color: 'red',
+          completed: false,
+        },
+      },
+      ids: ['0'],
+    };
+
+    const got = reducer(
+      {
+        entities: {
+          '0': {
+            id: '0',
+            name: 'Test something',
+            color: 'gray',
+            completed: false,
+          },
+        },
+        ids: ['0'],
+      },
+      todoColorChanged('0', 'red')
     );
 
     expect(got).toEqual(want);
