@@ -127,3 +127,5 @@ export const {
   manyTodosDeleted,
   manyTodosToggled,
 } = todosSlice.actions;
+
+export const { selectAll: selectAllTodos } = todosAdapter.getSelectors();

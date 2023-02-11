@@ -1,6 +1,7 @@
 import reducer, {
   manyTodosDeleted,
   manyTodosToggled,
+  selectAllTodos,
   todoAdded,
   todoColorChanged,
   todoDeleted,
@@ -537,6 +538,56 @@ describe('todosSlice action', () => {
       manyTodosToggled(['1', '2'], false)
     );
 
+    expect(got).toEqual(want);
+  });
+});
+
+describe('todosSlice selector', () => {
+  test('selectAllTodos returns all todos in the state', () => {
+    const want = [
+      {
+        id: '0',
+        name: 'Test something 0',
+        color: 'gray',
+        completed: false,
+      },
+      {
+        id: '1',
+        name: 'Test something 1',
+        color: 'gray',
+        completed: true,
+      },
+      {
+        id: '2',
+        name: 'Test something 2',
+        color: 'gray',
+        completed: false,
+      },
+    ];
+
+    const got = selectAllTodos({
+      entities: {
+        '0': {
+          id: '0',
+          name: 'Test something 0',
+          color: 'gray',
+          completed: false,
+        },
+        '1': {
+          id: '1',
+          name: 'Test something 1',
+          color: 'gray',
+          completed: true,
+        },
+        '2': {
+          id: '2',
+          name: 'Test something 2',
+          color: 'gray',
+          completed: false,
+        },
+      },
+      ids: ['0', '1', '2'],
+    });
     expect(got).toEqual(want);
   });
 });
