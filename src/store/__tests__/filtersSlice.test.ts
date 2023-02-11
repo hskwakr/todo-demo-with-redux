@@ -1,4 +1,7 @@
-import reducer, { filterStatusUpdated } from '../filtersSlice';
+import reducer, {
+  filterColorsModified,
+  filterStatusUpdated,
+} from '../filtersSlice';
 
 describe('filtersSlice reducer', () => {
   test('It returns the initial state', () => {
@@ -30,6 +33,48 @@ describe('filtersSlice action', () => {
     };
 
     const got = reducer(undefined, filterStatusUpdated('active'));
+    expect(got).toEqual(want);
+  });
+
+  test('filterColorsModified adds a color to the list', () => {
+    const want = {
+      colors: ['red'],
+      status: 'all',
+    };
+
+    const got = reducer(undefined, filterColorsModified('red', 'added'));
+    expect(got).toEqual(want);
+  });
+
+  test('filterColorsModified does not add same color to the list', () => {
+    const want = {
+      colors: ['green'],
+      status: 'all',
+    };
+
+    const got = reducer(
+      {
+        colors: ['green'],
+        status: 'all',
+      },
+      filterColorsModified('green', 'added')
+    );
+    expect(got).toEqual(want);
+  });
+
+  test('filterColorsModified removes a color from the list', () => {
+    const want = {
+      colors: ['gray', 'blue'],
+      status: 'all',
+    };
+
+    const got = reducer(
+      {
+        colors: ['gray', 'red', 'blue'],
+        status: 'all',
+      },
+      filterColorsModified('red', 'removed')
+    );
     expect(got).toEqual(want);
   });
 });

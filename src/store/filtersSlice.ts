@@ -27,9 +27,45 @@ const filtersSlice = createSlice({
         };
       },
     },
+
+    filterColorsModified: {
+      reducer(
+        state,
+        action: PayloadAction<{
+          color: ColorType;
+          changeType: 'added' | 'removed';
+        }>
+      ) {
+        const { color, changeType } = action.payload;
+
+        switch (changeType) {
+          case 'added':
+            if (state.colors.includes(color)) break;
+
+            state.colors.push(color);
+            break;
+
+          case 'removed':
+            state.colors = state.colors.filter(c => c !== color);
+            break;
+
+          default:
+            break;
+        }
+      },
+      prepare(color: ColorType, changeType: 'added' | 'removed') {
+        return {
+          payload: {
+            color,
+            changeType,
+          },
+        };
+      },
+    },
   },
 });
 
 export default filtersSlice.reducer;
 
-export const { filterStatusUpdated } = filtersSlice.actions;
+export const { filterStatusUpdated, filterColorsModified } =
+  filtersSlice.actions;
