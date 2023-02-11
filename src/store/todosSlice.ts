@@ -128,4 +128,5 @@ export const {
   manyTodosToggled,
 } = todosSlice.actions;
 
-export const { selectAll: selectAllTodos } = todosAdapter.getSelectors();
+export const { selectAll: selectAllTodos, selectById: selectTodoById } =
+  todosAdapter.getSelectors();

@@ -2,6 +2,7 @@ import reducer, {
   manyTodosDeleted,
   manyTodosToggled,
   selectAllTodos,
+  selectTodoById,
   todoAdded,
   todoColorChanged,
   todoDeleted,
@@ -588,6 +589,44 @@ describe('todosSlice selector', () => {
       },
       ids: ['0', '1', '2'],
     });
+    expect(got).toEqual(want);
+  });
+
+  test('selectTodoById returns a todo specified by id', () => {
+    const want = {
+      id: '1',
+      name: 'Test something 1',
+      color: 'gray',
+      completed: true,
+    };
+
+    const got = selectTodoById(
+      {
+        entities: {
+          '0': {
+            id: '0',
+            name: 'Test something 0',
+            color: 'gray',
+            completed: false,
+          },
+          '1': {
+            id: '1',
+            name: 'Test something 1',
+            color: 'gray',
+            completed: true,
+          },
+          '2': {
+            id: '2',
+            name: 'Test something 2',
+            color: 'gray',
+            completed: false,
+          },
+        },
+        ids: ['0', '1', '2'],
+      },
+      '1'
+    );
+
     expect(got).toEqual(want);
   });
 });
