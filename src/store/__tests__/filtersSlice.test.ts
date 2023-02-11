@@ -1,6 +1,7 @@
 import reducer, {
   filterColorsModified,
   filterStatusUpdated,
+  filtersSelector,
 } from '../filtersSlice';
 
 describe('filtersSlice reducer', () => {
@@ -75,6 +76,27 @@ describe('filtersSlice action', () => {
       },
       filterColorsModified('red', 'removed')
     );
+    expect(got).toEqual(want);
+  });
+});
+
+describe('filtersSlice selector', () => {
+  test('filtersSelector returns state of filters', () => {
+    const want = {
+      colors: [],
+      status: 'all',
+    };
+
+    const got = filtersSelector({
+      todos: {
+        entities: {},
+        ids: [],
+      },
+      filters: {
+        colors: [],
+        status: 'all',
+      },
+    });
     expect(got).toEqual(want);
   });
 });

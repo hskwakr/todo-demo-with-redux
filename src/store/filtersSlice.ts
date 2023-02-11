@@ -1,6 +1,7 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { ColorType } from '../utils/color';
 import { StatusType, Status } from '../utils/status';
+import type { RootState } from './store';
 
 type FiltersType = {
   status: StatusType;
@@ -69,3 +70,5 @@ export default filtersSlice.reducer;
 
 export const { filterStatusUpdated, filterColorsModified } =
   filtersSlice.actions;
+
+export const filtersSelector = (state: RootState) => state.filters;
