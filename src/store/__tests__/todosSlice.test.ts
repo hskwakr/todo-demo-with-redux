@@ -1,4 +1,4 @@
-import reducer, { todoAdded, todoDeleted } from '../todosSlice';
+import reducer, { todoAdded, todoDeleted, todoToggled } from '../todosSlice';
 
 describe('todosSlice reducer', () => {
   test('It returns the initial state', () => {
@@ -141,6 +141,68 @@ describe('todosSlice action', () => {
     };
 
     const got = reducer(undefined, todoDeleted('0'));
+
+    expect(got).toEqual(want);
+  });
+
+  test('todoToggled toggle completed prop from false to true', () => {
+    const want = {
+      entities: {
+        '0': {
+          id: '0',
+          name: 'Test something',
+          color: 'gray',
+          completed: true,
+        },
+      },
+      ids: ['0'],
+    };
+
+    const got = reducer(
+      {
+        entities: {
+          '0': {
+            id: '0',
+            name: 'Test something',
+            color: 'gray',
+            completed: false,
+          },
+        },
+        ids: ['0'],
+      },
+      todoToggled('0')
+    );
+
+    expect(got).toEqual(want);
+  });
+
+  test('todoToggled toggle completed prop from true to false', () => {
+    const want = {
+      entities: {
+        '0': {
+          id: '0',
+          name: 'Test something',
+          color: 'gray',
+          completed: false,
+        },
+      },
+      ids: ['0'],
+    };
+
+    const got = reducer(
+      {
+        entities: {
+          '0': {
+            id: '0',
+            name: 'Test something',
+            color: 'gray',
+            completed: true,
+          },
+        },
+        ids: ['0'],
+      },
+      todoToggled('0')
+    );
 
     expect(got).toEqual(want);
   });

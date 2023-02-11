@@ -46,9 +46,25 @@ const todosSlice = createSlice({
         };
       },
     },
+
+    todoToggled: {
+      reducer(state, action: PayloadAction<string>) {
+        const id = action.payload;
+        const todo = state.entities[id];
+
+        if (todo) {
+          todo.completed = !todo.completed;
+        }
+      },
+      prepare(id: string) {
+        return {
+          payload: id,
+        };
+      },
+    },
   },
 });
 
 export default todosSlice.reducer;
 
-export const { todoAdded, todoDeleted } = todosSlice.actions;
+export const { todoAdded, todoDeleted, todoToggled } = todosSlice.actions;
