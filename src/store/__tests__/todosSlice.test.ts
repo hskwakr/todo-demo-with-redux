@@ -1,4 +1,5 @@
 import reducer, {
+  manyTodosDeleted,
   todoAdded,
   todoColorChanged,
   todoDeleted,
@@ -238,6 +239,92 @@ describe('todosSlice action', () => {
         ids: ['0'],
       },
       todoColorChanged('0', 'red')
+    );
+
+    expect(got).toEqual(want);
+  });
+
+  test('manyTodosDeleted deletes last two todos from list', () => {
+    const want = {
+      entities: {
+        '0': {
+          id: '0',
+          name: 'Test something 0',
+          color: 'gray',
+          completed: false,
+        },
+      },
+      ids: ['0'],
+    };
+
+    const got = reducer(
+      {
+        entities: {
+          '0': {
+            id: '0',
+            name: 'Test something 0',
+            color: 'gray',
+            completed: false,
+          },
+          '1': {
+            id: '1',
+            name: 'Test something 1',
+            color: 'gray',
+            completed: false,
+          },
+          '2': {
+            id: '2',
+            name: 'Test something 2',
+            color: 'gray',
+            completed: false,
+          },
+        },
+        ids: ['0', '1', '2'],
+      },
+      manyTodosDeleted(['1', '2'])
+    );
+
+    expect(got).toEqual(want);
+  });
+
+  test('manyTodosDeleted deletes first two todos from list', () => {
+    const want = {
+      entities: {
+        '2': {
+          id: '2',
+          name: 'Test something 2',
+          color: 'gray',
+          completed: false,
+        },
+      },
+      ids: ['2'],
+    };
+
+    const got = reducer(
+      {
+        entities: {
+          '0': {
+            id: '0',
+            name: 'Test something 0',
+            color: 'gray',
+            completed: false,
+          },
+          '1': {
+            id: '1',
+            name: 'Test something 1',
+            color: 'gray',
+            completed: false,
+          },
+          '2': {
+            id: '2',
+            name: 'Test something 2',
+            color: 'gray',
+            completed: false,
+          },
+        },
+        ids: ['0', '1', '2'],
+      },
+      manyTodosDeleted(['0', '1'])
     );
 
     expect(got).toEqual(want);
