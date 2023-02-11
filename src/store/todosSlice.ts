@@ -154,3 +154,8 @@ export const selectFilteredTodos = createSelector(
     });
   }
 );
+
+export const selectFilteredTodosById = createSelector(
+  selectFilteredTodos,
+  todos => todos.map(todo => todo.id)
+);
