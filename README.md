@@ -1,4 +1,4 @@
-# React redux todo demo app 
+# React redux todo demo app
 
 https://hskwakr-todo-demo-with-redux.netlify.app/
 
