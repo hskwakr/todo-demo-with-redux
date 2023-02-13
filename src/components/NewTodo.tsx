@@ -5,6 +5,7 @@ import { ColorType } from '../utils/color';
 
 const NewTodo = () => {
   const [color, setColor] = useState<ColorType>('gray');
+  const [text, setText] = useState('');
 
   return (
     <Grid container alignItems="center">
@@ -18,7 +19,20 @@ const NewTodo = () => {
       </Grid>
 
       <Grid item>
-        <Input placeholder="Enter TODO..." />
+        <Input
+          placeholder="Enter TODO..."
+          value={text}
+          onChange={e => {
+            setText(e.target.value);
+          }}
+          onKeyDown={e => {
+            const trimmed = e.currentTarget.value.trim();
+
+            if (e.key === 'Enter' && trimmed) {
+              setText('');
+            }
+          }}
+        />
       </Grid>
     </Grid>
   );
