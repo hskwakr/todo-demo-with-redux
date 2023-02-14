@@ -1,6 +1,7 @@
 import { Grid, Container } from '@mui/material';
 import TodoHeader from './components/TodoHeader';
 import './App.css';
+import TodoList from './components/TodoList';
 
 const App = () => (
   <Container fixed>
@@ -14,6 +15,10 @@ const App = () => (
     >
       <Grid item>
         <TodoHeader />
+      </Grid>
+
+      <Grid item>
+        <TodoList />
       </Grid>
     </Grid>
   </Container>
