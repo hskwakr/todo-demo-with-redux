@@ -3,7 +3,7 @@ import reducer, {
   manyTodosToggled,
   selectAllTodos,
   selectFilteredTodos,
-  selectFilteredTodosById,
+  selectFilteredTodoIds,
   selectTodoById,
   todoAdded,
   todoColorChanged,
@@ -970,7 +970,7 @@ describe('todosSlice selector', () => {
   test('selectFilteredTodosById returns id of filtered todos', () => {
     const want = ['0'];
 
-    const got = selectFilteredTodosById({
+    const got = selectFilteredTodoIds({
       filters: { colors: ['red'], status: 'completed' },
       todos: {
         entities: {

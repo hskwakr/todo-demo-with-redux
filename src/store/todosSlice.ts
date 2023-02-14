@@ -155,7 +155,7 @@ export const selectFilteredTodos = createSelector(
   }
 );
 
-export const selectFilteredTodosById = createSelector(
+export const selectFilteredTodoIds = createSelector(
   selectFilteredTodos,
   todos => todos.map(todo => todo.id)
 );
