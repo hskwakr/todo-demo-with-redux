@@ -5,7 +5,7 @@ import Todo from '../Todo';
 const todoName = 'Make a test for todo component';
 
 describe('Todo Component Appearance', () => {
-  test('It has a name text specified by props', () => {
+  test('It has a name text specified by state', () => {
     renderWithProviders(<Todo id="1" />, {
       preloadedState: {
         todos: {
