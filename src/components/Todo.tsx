@@ -1,13 +1,19 @@
 import { Button, Checkbox, Grid, Typography } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
-import { TodoType } from '../utils/todo';
 import ColorSwitch from './ColorSwitch';
+import { useAppSelector } from '../store/hooks';
+import { selectTodoById } from '../store/todosSlice';
 
 interface TodoProps {
-  todo: TodoType;
+  id: string;
 }
 
-const Todo = ({ todo }: TodoProps) => {
+const Todo = ({ id }: TodoProps) => {
+  const todo = useAppSelector(state => selectTodoById(state.todos, id));
+  if (!todo) {
+    return null;
+  }
+
   const { name, color, completed } = todo;
 
   return (

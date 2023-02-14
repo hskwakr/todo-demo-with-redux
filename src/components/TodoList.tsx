@@ -18,32 +18,7 @@ const TodoList = () => (
     </Box>
 
     <Box minWidth="300px">
-      <Todo
-        todo={{
-          id: '1',
-          name: 'Do something 1',
-          color: 'gray',
-          completed: false,
-        }}
-      />
-
-      <Todo
-        todo={{
-          id: '2',
-          name: 'Do something 2',
-          color: 'red',
-          completed: false,
-        }}
-      />
-
-      <Todo
-        todo={{
-          id: '3',
-          name: 'Do something 3',
-          color: 'green',
-          completed: false,
-        }}
-      />
+      <Todo id="1" />
     </Box>
   </Box>
 );
