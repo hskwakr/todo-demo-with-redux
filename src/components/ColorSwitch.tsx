@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Popper, Button, Grid } from '@mui/material';
+import { Popper, Button, Grid, Box } from '@mui/material';
 import ColorBox from './ColorBox';
 import { ColorType, colors } from '../utils/color';
 
@@ -46,9 +46,15 @@ const ColorSwitch = ({ initColor, onColorUpdated }: ColorSwitchProps) => {
       </Button>
 
       <Popper id={id} open={open} anchorEl={anchorEl}>
-        <Grid container spacing={0}>
-          {renderedItems}
-        </Grid>
+        <Box
+          p="20px"
+          mt="5px"
+          sx={{ backgroundColor: 'white', border: 'dashed 1px gray' }}
+        >
+          <Grid container spacing={1}>
+            {renderedItems}
+          </Grid>
+        </Box>
       </Popper>
     </>
   );
