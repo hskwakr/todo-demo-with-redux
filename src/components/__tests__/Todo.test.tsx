@@ -1,84 +1,110 @@
-import { render, screen } from '@testing-library/react';
+import { screen } from '@testing-library/react';
+import { renderWithProviders } from '../../utils/test-utils';
 import Todo from '../Todo';
 
 const todoName = 'Make a test for todo component';
 
 describe('Todo Component Appearance', () => {
-  test('It has a name text specified by props', () => {
-    render(
-      <Todo
-        todo={{
-          id: '1',
-          name: todoName,
-          color: 'red',
-          completed: false,
-        }}
-      />
-    );
+  test('It has a name text specified by state', () => {
+    renderWithProviders(<Todo id="1" />, {
+      preloadedState: {
+        todos: {
+          ids: ['1'],
+          entities: {
+            '1': {
+              id: '1',
+              name: todoName,
+              color: 'gray',
+              completed: false,
+            },
+          },
+        },
+      },
+    });
 
     const name = screen.getByText(todoName);
     expect(name).toBeInTheDocument();
   });
 
   test('It has a button to delete', () => {
-    render(
-      <Todo
-        todo={{
-          id: '1',
-          name: todoName,
-          color: 'red',
-          completed: false,
-        }}
-      />
-    );
+    renderWithProviders(<Todo id="1" />, {
+      preloadedState: {
+        todos: {
+          ids: ['1'],
+          entities: {
+            '1': {
+              id: '1',
+              name: todoName,
+              color: 'gray',
+              completed: false,
+            },
+          },
+        },
+      },
+    });
 
     const deleteButton = screen.getByTestId('todo-delete');
     expect(deleteButton).toBeInTheDocument();
   });
 
   test('It has a checkbox', () => {
-    render(
-      <Todo
-        todo={{
-          id: '1',
-          name: todoName,
-          color: 'red',
-          completed: false,
-        }}
-      />
-    );
+    renderWithProviders(<Todo id="1" />, {
+      preloadedState: {
+        todos: {
+          ids: ['1'],
+          entities: {
+            '1': {
+              id: '1',
+              name: todoName,
+              color: 'gray',
+              completed: false,
+            },
+          },
+        },
+      },
+    });
 
     const checkbox = screen.getByRole('checkbox');
     expect(checkbox).toBeInTheDocument();
   });
 
   test('The checkbox is not checked when the completed is false', () => {
-    render(
-      <Todo
-        todo={{
-          id: '1',
-          name: todoName,
-          color: 'red',
-          completed: false,
-        }}
-      />
-    );
+    renderWithProviders(<Todo id="1" />, {
+      preloadedState: {
+        todos: {
+          ids: ['1'],
+          entities: {
+            '1': {
+              id: '1',
+              name: todoName,
+              color: 'gray',
+              completed: false,
+            },
+          },
+        },
+      },
+    });
 
     const checkbox = screen.getByRole('checkbox');
     expect(checkbox).not.toBeChecked();
   });
 
   test('The checkbox is checked when the completed is true', () => {
-    render(
-      <Todo
-        todo={{
-          id: '1',
-          name: todoName,
-          color: 'red',
-          completed: true,
-        }}
-      />
-    );
+    renderWithProviders(<Todo id="1" />, {
+      preloadedState: {
+        todos: {
+          ids: ['1'],
+          entities: {
+            '1': {
+              id: '1',
+              name: todoName,
+              color: 'gray',
+              completed: true,
+            },
+          },
+        },
+      },
+    });
 
     const checkbox = screen.getByRole('checkbox');
     expect(checkbox).toBeChecked();
