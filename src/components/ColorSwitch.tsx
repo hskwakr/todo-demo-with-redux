@@ -49,7 +49,7 @@ const ColorSwitch = ({ initColor, onColorUpdated }: ColorSwitchProps) => {
         <Box
           p="20px"
           mt="5px"
-          sx={{ backgroundColor: 'white', border: 'dashed 1px' }}
+          sx={{ backgroundColor: 'white', border: 'dashed 1px gray' }}
         >
           <Grid container spacing={1}>
             {renderedItems}
