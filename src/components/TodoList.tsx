@@ -7,7 +7,11 @@ import { selectFilteredTodoIds } from '../store/todosSlice';
 const TodoList = () => {
   const todoIds = useAppSelector(selectFilteredTodoIds);
 
-  const Items = todoIds.map(id => <Todo key={id} id={id} />);
+  const Items = todoIds.map(id => (
+    <div key={id} data-testid="todo-list-item">
+      <Todo id={id} />
+    </div>
+  ));
 
   return (
     <Box
