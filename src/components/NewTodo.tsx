@@ -2,8 +2,11 @@ import { useState } from 'react';
 import { Grid, Input } from '@mui/material';
 import ColorSwitch from './ColorSwitch';
 import { ColorType } from '../utils/color';
+import { useAppDispatch } from '../store/hooks';
+import { todoAdded } from '../store/todosSlice';
 
 const NewTodo = () => {
+  const dispatch = useAppDispatch();
   const [color, setColor] = useState<ColorType>('gray');
   const [text, setText] = useState('');
 
@@ -29,6 +32,7 @@ const NewTodo = () => {
             const trimmed = e.currentTarget.value.trim();
 
             if (e.key === 'Enter' && trimmed) {
+              dispatch(todoAdded(text, color));
               setText('');
             }
           }}
