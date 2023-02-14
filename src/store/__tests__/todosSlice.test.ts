@@ -569,41 +569,7 @@ describe('todosSlice selector', () => {
     ];
 
     const got = selectAllTodos({
-      entities: {
-        '0': {
-          id: '0',
-          name: 'Test something 0',
-          color: 'gray',
-          completed: false,
-        },
-        '1': {
-          id: '1',
-          name: 'Test something 1',
-          color: 'gray',
-          completed: true,
-        },
-        '2': {
-          id: '2',
-          name: 'Test something 2',
-          color: 'gray',
-          completed: false,
-        },
-      },
-      ids: ['0', '1', '2'],
-    });
-    expect(got).toEqual(want);
-  });
-
-  test('selectTodoById returns a todo specified by id', () => {
-    const want = {
-      id: '1',
-      name: 'Test something 1',
-      color: 'gray',
-      completed: true,
-    };
-
-    const got = selectTodoById(
-      {
+      todos: {
         entities: {
           '0': {
             id: '0',
@@ -625,6 +591,46 @@ describe('todosSlice selector', () => {
           },
         },
         ids: ['0', '1', '2'],
+      },
+      filters: { colors: [], status: 'all' },
+    });
+    expect(got).toEqual(want);
+  });
+
+  test('selectTodoById returns a todo specified by id', () => {
+    const want = {
+      id: '1',
+      name: 'Test something 1',
+      color: 'gray',
+      completed: true,
+    };
+
+    const got = selectTodoById(
+      {
+        todos: {
+          entities: {
+            '0': {
+              id: '0',
+              name: 'Test something 0',
+              color: 'gray',
+              completed: false,
+            },
+            '1': {
+              id: '1',
+              name: 'Test something 1',
+              color: 'gray',
+              completed: true,
+            },
+            '2': {
+              id: '2',
+              name: 'Test something 2',
+              color: 'gray',
+              completed: false,
+            },
+          },
+          ids: ['0', '1', '2'],
+        },
+        filters: { colors: [], status: 'all' },
       },
       '1'
     );
@@ -679,27 +685,6 @@ describe('todosSlice selector', () => {
         },
         ids: ['0', '1', '2'],
       },
-      entities: {
-        '0': {
-          id: '0',
-          name: 'Test something 0',
-          color: 'red',
-          completed: false,
-        },
-        '1': {
-          id: '1',
-          name: 'Test something 1',
-          color: 'gray',
-          completed: true,
-        },
-        '2': {
-          id: '2',
-          name: 'Test something 2',
-          color: 'green',
-          completed: false,
-        },
-      },
-      ids: ['0', '1', '2'],
     });
 
     expect(got).toEqual(want);
@@ -746,27 +731,6 @@ describe('todosSlice selector', () => {
         },
         ids: ['0', '1', '2'],
       },
-      entities: {
-        '0': {
-          id: '0',
-          name: 'Test something 0',
-          color: 'red',
-          completed: false,
-        },
-        '1': {
-          id: '1',
-          name: 'Test something 1',
-          color: 'gray',
-          completed: true,
-        },
-        '2': {
-          id: '2',
-          name: 'Test something 2',
-          color: 'green',
-          completed: false,
-        },
-      },
-      ids: ['0', '1', '2'],
     });
 
     expect(got).toEqual(want);
@@ -807,27 +771,6 @@ describe('todosSlice selector', () => {
         },
         ids: ['0', '1', '2'],
       },
-      entities: {
-        '0': {
-          id: '0',
-          name: 'Test something 0',
-          color: 'red',
-          completed: false,
-        },
-        '1': {
-          id: '1',
-          name: 'Test something 1',
-          color: 'gray',
-          completed: true,
-        },
-        '2': {
-          id: '2',
-          name: 'Test something 2',
-          color: 'green',
-          completed: false,
-        },
-      },
-      ids: ['0', '1', '2'],
     });
 
     expect(got).toEqual(want);
@@ -868,27 +811,6 @@ describe('todosSlice selector', () => {
         },
         ids: ['0', '1', '2'],
       },
-      entities: {
-        '0': {
-          id: '0',
-          name: 'Test something 0',
-          color: 'red',
-          completed: false,
-        },
-        '1': {
-          id: '1',
-          name: 'Test something 1',
-          color: 'gray',
-          completed: true,
-        },
-        '2': {
-          id: '2',
-          name: 'Test something 2',
-          color: 'green',
-          completed: false,
-        },
-      },
-      ids: ['0', '1', '2'],
     });
 
     expect(got).toEqual(want);
@@ -935,33 +857,6 @@ describe('todosSlice selector', () => {
         },
         ids: ['0', '1', '2', '3'],
       },
-      entities: {
-        '0': {
-          id: '0',
-          name: 'Test something 0',
-          color: 'red',
-          completed: true,
-        },
-        '1': {
-          id: '1',
-          name: 'Test something 1',
-          color: 'gray',
-          completed: true,
-        },
-        '2': {
-          id: '2',
-          name: 'Test something 2',
-          color: 'green',
-          completed: false,
-        },
-        '3': {
-          id: '3',
-          name: 'Test something 3',
-          color: 'red',
-          completed: false,
-        },
-      },
-      ids: ['0', '1', '2', '3'],
     });
 
     expect(got).toEqual(want);
@@ -1001,33 +896,6 @@ describe('todosSlice selector', () => {
         },
         ids: ['0', '1', '2', '3'],
       },
-      entities: {
-        '0': {
-          id: '0',
-          name: 'Test something 0',
-          color: 'red',
-          completed: true,
-        },
-        '1': {
-          id: '1',
-          name: 'Test something 1',
-          color: 'gray',
-          completed: true,
-        },
-        '2': {
-          id: '2',
-          name: 'Test something 2',
-          color: 'green',
-          completed: false,
-        },
-        '3': {
-          id: '3',
-          name: 'Test something 3',
-          color: 'red',
-          completed: false,
-        },
-      },
-      ids: ['0', '1', '2', '3'],
     });
 
     expect(got).toEqual(want);

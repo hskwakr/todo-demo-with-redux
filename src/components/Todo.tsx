@@ -9,7 +9,7 @@ interface TodoProps {
 }
 
 const Todo = ({ id }: TodoProps) => {
-  const todo = useAppSelector(state => selectTodoById(state.todos, id));
+  const todo = useAppSelector(state => selectTodoById(state, id));
   if (!todo) {
     return null;
   }

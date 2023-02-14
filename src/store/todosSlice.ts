@@ -8,6 +8,7 @@ import { TodoType } from '../utils/todo';
 import { ColorType } from '../utils/color';
 import { selectFilters } from './filtersSlice';
 import { Status } from '../utils/status';
+import type { RootState } from './store';
 
 const todosAdapter = createEntityAdapter<TodoType>();
 const initialState = todosAdapter.getInitialState();
@@ -132,7 +133,7 @@ export const {
 } = todosSlice.actions;
 
 export const { selectAll: selectAllTodos, selectById: selectTodoById } =
-  todosAdapter.getSelectors();
+  todosAdapter.getSelectors<RootState>(state => state.todos);
 
 export const selectFilteredTodos = createSelector(
   selectAllTodos,
