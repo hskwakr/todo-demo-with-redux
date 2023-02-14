@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Popper, Button, Grid, Box } from '@mui/material';
+import { Button, Grid, Box, Popover } from '@mui/material';
 import ColorBox from './ColorBox';
 import { ColorType, colors } from '../utils/color';
 
@@ -45,17 +45,19 @@ const ColorSwitch = ({ initColor, onColorUpdated }: ColorSwitchProps) => {
         <ColorBox color={currentColor} />
       </Button>
 
-      <Popper id={id} open={open} anchorEl={anchorEl}>
-        <Box
-          p="20px"
-          mt="5px"
-          sx={{ backgroundColor: 'white', border: 'dashed 1px gray' }}
-        >
+      <Popover
+        id={id}
+        open={open}
+        anchorEl={anchorEl}
+        onClose={() => setAnchorEl(null)}
+        anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+      >
+        <Box p="10px" mt="5px">
           <Grid container spacing={1}>
             {renderedItems}
           </Grid>
         </Box>
-      </Popper>
+      </Popover>
     </>
   );
 };

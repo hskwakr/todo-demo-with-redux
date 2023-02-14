@@ -1,9 +1,10 @@
-import { render, screen } from '@testing-library/react';
+import { screen } from '@testing-library/react';
 import NewTodo from '../NewTodo';
+import { renderWithProviders } from '../../utils/test-utils';
 
 describe('NewTodo Component Appearance', () => {
   test('It has a text input with placeholder', () => {
-    render(<NewTodo />);
+    renderWithProviders(<NewTodo />);
 
     const input = screen.getByRole('textbox');
     expect(input).toBeInTheDocument();
