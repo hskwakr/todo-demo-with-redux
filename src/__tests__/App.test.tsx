@@ -6,7 +6,7 @@ import App from '../App';
 const text = 'Test user path';
 
 describe('Happy path', () => {
-  test('Intentional user path', async () => {
+  test('Adding a todo and update a todo', async () => {
     const user = userEvent.setup();
     renderWithProviders(<App />);
 
@@ -37,5 +37,53 @@ describe('Happy path', () => {
 
     todos = screen.queryAllByTestId('a-todo');
     expect(todos.length).toEqual(0);
+  });
+
+  test('Toggle todos and delete todos at once', async () => {
+    const user = userEvent.setup();
+
+    renderWithProviders(<App />, {
+      preloadedState: {
+        todos: {
+          entities: {
+            '0': {
+              id: '0',
+              name: 'Test something 0',
+              color: 'gray',
+              completed: false,
+            },
+            '1': {
+              id: '1',
+              name: 'Test something 1',
+              color: 'gray',
+              completed: true,
+            },
+            '2': {
+              id: '2',
+              name: 'Test something 2',
+              color: 'gray',
+              completed: false,
+            },
+          },
+          ids: ['0', '1', '2'],
+        },
+      },
+    });
+
+    const listTitle = screen.getByTestId('list-title');
+
+    // Toggle checkbox
+    const titleCheckbox = within(listTitle).getByRole('checkbox');
+
+    expect(titleCheckbox).not.toBeChecked();
+    await user.click(titleCheckbox);
+    expect(titleCheckbox).toBeChecked();
+
+    // Check todos toggled into true
+    const todos = await screen.findAllByTestId('a-todo');
+    todos.forEach(todo => {
+      const checkbox = within(todo).getByRole('checkbox');
+      expect(checkbox).toBeChecked();
+    });
   });
 });

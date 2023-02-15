@@ -11,7 +11,13 @@ const ListTitle = ({ ids }: ListTitleProps) => {
   const dispatch = useAppDispatch();
 
   return (
-    <Grid container spacing={0} justifyContent="center" alignItems="center">
+    <Grid
+      container
+      spacing={0}
+      justifyContent="center"
+      alignItems="center"
+      data-testid="list-title"
+    >
       <Grid item xs={2}>
         <Checkbox
           onChange={e => dispatch(manyTodosToggled(ids, e.target.checked))}
