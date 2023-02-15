@@ -26,7 +26,7 @@ const TodoList = () => {
         data-testid="todo-list"
       >
         <Box minWidth="300px">
-          <ListTitle />
+          <ListTitle ids={todoIds} />
           <hr />
         </Box>
 
