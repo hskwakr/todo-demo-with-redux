@@ -1,7 +1,7 @@
 import { Button, Checkbox, Grid } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { useAppDispatch } from '../store/hooks';
-import { manyTodosToggled } from '../store/todosSlice';
+import { manyTodosDeleted, manyTodosToggled } from '../store/todosSlice';
 
 interface ListTitleProps {
   ids: string[];
@@ -27,7 +27,10 @@ const ListTitle = ({ ids }: ListTitleProps) => {
       <Grid item xs={8} />
 
       <Grid item xs={2}>
-        <Button data-testid="list-title-delete">
+        <Button
+          data-testid="list-title-delete"
+          onClick={() => dispatch(manyTodosDeleted(ids))}
+        >
           <DeleteIcon />
         </Button>
       </Grid>

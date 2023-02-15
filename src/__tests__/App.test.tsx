@@ -80,10 +80,19 @@ describe('Happy path', () => {
     expect(titleCheckbox).toBeChecked();
 
     // Check todos toggled into true
-    const todos = await screen.findAllByTestId('a-todo');
+    let todos = await screen.findAllByTestId('a-todo');
     todos.forEach(todo => {
       const checkbox = within(todo).getByRole('checkbox');
       expect(checkbox).toBeChecked();
     });
+
+    // Click delete button
+    expect(todos.length).toEqual(3);
+    const deleteButton = within(listTitle).getByRole('button');
+
+    await user.click(deleteButton);
+
+    todos = screen.queryAllByTestId('a-todo');
+    expect(todos.length).toEqual(0);
   });
 });
