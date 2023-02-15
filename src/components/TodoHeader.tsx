@@ -7,7 +7,12 @@ import StatusFilter from './StatusFilter';
 const Item = styled(Box)(() => ({}));
 
 const TodoHeader = () => (
-  <Stack direction="column" spacing={1} alignItems="center">
+  <Stack
+    direction="column"
+    spacing={1}
+    alignItems="center"
+    data-testid="todo-header"
+  >
     <Item mb={3}>
       <NewTodo />
     </Item>
