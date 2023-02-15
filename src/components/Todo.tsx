@@ -33,7 +33,7 @@ const Todo = ({ id }: TodoProps) => {
       <Grid item xs={2}>
         <Checkbox
           checked={completed}
-          onClick={() => dispatch(todoToggled(id))}
+          onChange={() => dispatch(todoToggled(id))}
         />
       </Grid>
 
