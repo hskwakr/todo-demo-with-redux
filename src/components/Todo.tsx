@@ -23,7 +23,13 @@ const Todo = ({ id }: TodoProps) => {
   const { name, color, completed } = todo;
 
   return (
-    <Grid container spacing={0} justifyContent="center" alignItems="center">
+    <Grid
+      container
+      spacing={0}
+      justifyContent="center"
+      alignItems="center"
+      data-testid="a-todo"
+    >
       <Grid item xs={2}>
         <Checkbox
           checked={completed}
