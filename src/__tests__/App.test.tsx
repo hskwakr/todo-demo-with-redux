@@ -256,5 +256,16 @@ describe('Happy path', () => {
       expect(GRAY_2).toBeInTheDocument();
       expect(GREEN_3).toBeInTheDocument();
     }
+
+    // Filter by color and status
+    await user.click(redCheckbox);
+    await user.click(activeButton);
+    {
+      const { RED_0, RED_1, GRAY_2, GREEN_3 } = getTodos();
+      expect(RED_0).toBeInTheDocument();
+      expect(RED_1).not.toBeInTheDocument();
+      expect(GRAY_2).not.toBeInTheDocument();
+      expect(GREEN_3).not.toBeInTheDocument();
+    }
   });
 });
