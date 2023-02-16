@@ -24,7 +24,7 @@ const ListTitle = ({ ids }: ListTitleProps) => {
         />
       </Grid>
 
-      <Grid item xs={8} />
+      <Grid item xs={7} width="250px" />
 
       <Grid item xs={2}>
         <Button

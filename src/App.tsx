@@ -1,4 +1,4 @@
-import { Grid, Container } from '@mui/material';
+import { Container, Grid } from '@mui/material';
 import TodoHeader from './components/TodoHeader';
 import './App.css';
 import TodoList from './components/TodoList';
@@ -13,11 +13,11 @@ const App = () => (
       direction="column"
       spacing={1}
     >
-      <Grid item>
+      <Grid item height="30%">
         <TodoHeader />
       </Grid>
 
-      <Grid item>
+      <Grid item height="50%">
         <TodoList />
       </Grid>
     </Grid>
