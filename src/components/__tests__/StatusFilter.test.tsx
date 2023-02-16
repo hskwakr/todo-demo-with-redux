@@ -1,11 +1,12 @@
-import { render, screen } from '@testing-library/react';
+import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import { renderWithProviders } from '../../utils/test-utils';
 import { Status } from '../../utils/status';
 import StatusFilter from '../StatusFilter';
 
 describe('StatusFilter Component Appearance', () => {
   test('There are as many buttons as status types', async () => {
-    render(<StatusFilter />);
+    renderWithProviders(<StatusFilter />);
     const { length } = Object.keys(Status);
 
     const buttons = await screen.findAllByRole('button');
@@ -16,7 +17,7 @@ describe('StatusFilter Component Appearance', () => {
 describe('StatusFilter Component Behavior', () => {
   test('The clicked button turns disable', async () => {
     const user = userEvent.setup();
-    render(<StatusFilter />);
+    renderWithProviders(<StatusFilter />);
 
     const buttons = await screen.findAllByRole('button');
 
@@ -30,7 +31,7 @@ describe('StatusFilter Component Behavior', () => {
 
   test('The disabled button turns not disabled after clicked other one', async () => {
     const user = userEvent.setup();
-    render(<StatusFilter />);
+    renderWithProviders(<StatusFilter />);
 
     const buttons = await screen.findAllByRole('button');
 

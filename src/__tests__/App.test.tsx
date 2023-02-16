@@ -229,11 +229,32 @@ describe('Happy path', () => {
 
     // Check after click active button
     await user.click(activeButton);
+    {
+      const { RED_0, RED_1, GRAY_2, GREEN_3 } = getTodos();
+      expect(RED_0).toBeInTheDocument();
+      expect(RED_1).not.toBeInTheDocument();
+      expect(GRAY_2).toBeInTheDocument();
+      expect(GREEN_3).toBeInTheDocument();
+    }
 
     // Check after click completed button
     await user.click(completedButton);
+    {
+      const { RED_0, RED_1, GRAY_2, GREEN_3 } = getTodos();
+      expect(RED_0).not.toBeInTheDocument();
+      expect(RED_1).toBeInTheDocument();
+      expect(GRAY_2).not.toBeInTheDocument();
+      expect(GREEN_3).not.toBeInTheDocument();
+    }
 
     // Check after click completed button
     await user.click(allButton);
+    {
+      const { RED_0, RED_1, GRAY_2, GREEN_3 } = getTodos();
+      expect(RED_0).toBeInTheDocument();
+      expect(RED_1).toBeInTheDocument();
+      expect(GRAY_2).toBeInTheDocument();
+      expect(GREEN_3).toBeInTheDocument();
+    }
   });
 });
