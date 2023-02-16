@@ -1,11 +1,12 @@
-import { render, screen } from '@testing-library/react';
+import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import { renderWithProviders } from '../../utils/test-utils';
 import ColorFilter from '../ColorFilter';
 import { colors } from '../../utils/color';
 
 describe('ColorFilter Component Appearance', () => {
   test('There are as many checkboxes as color types', async () => {
-    render(<ColorFilter />);
+    renderWithProviders(<ColorFilter />);
 
     const checkboxes = await screen.findAllByRole('checkbox');
     expect(checkboxes.length).toBe(colors.length);
@@ -13,7 +14,7 @@ describe('ColorFilter Component Appearance', () => {
 
   test('The checkbox turns checked', async () => {
     const user = userEvent.setup();
-    render(<ColorFilter />);
+    renderWithProviders(<ColorFilter />);
 
     const checkboxes = await screen.findAllByRole('checkbox');
 
