@@ -1,7 +1,11 @@
 import { Checkbox, Grid } from '@mui/material';
 import { colors } from '../utils/color';
+import { useAppDispatch } from '../store/hooks';
+import { filterColorsModified } from '../store/filtersSlice';
 
 const ColorFilter = () => {
+  const dispatch = useAppDispatch();
+
   const renderedItems = colors.map(c => {
     const id = `color-filter-item-${c}`;
 
@@ -14,6 +18,10 @@ const ColorFilter = () => {
             '&.Mui-checked': {
               color: c,
             },
+          }}
+          onChange={e => {
+            const type = e.target.checked ? 'added' : 'removed';
+            dispatch(filterColorsModified(c, type));
           }}
         />
       </Grid>

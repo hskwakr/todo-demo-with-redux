@@ -133,38 +133,82 @@ describe('Happy path', () => {
       },
     });
 
-    const todoList = screen.getByTestId('todo-list');
+    // Function to get all expected todo elements in the list
+    const getTodos = () => {
+      const todoList = screen.getByTestId('todo-list');
 
-    const textList = [
-      'Test red 0',
-      'Test red 1',
-      'Test gray 2',
-      'Test green 3',
-    ];
-    const todos = textList.map(t => within(todoList).getByText(t));
-    const RED_0 = todos[0];
-    const RED_1 = todos[1];
-    const GRAY_2 = todos[2];
-    const GREEN_3 = todos[3];
+      const textList = [
+        'Test red 0',
+        'Test red 1',
+        'Test gray 2',
+        'Test green 3',
+      ];
+      const todos = textList.map(t => within(todoList).queryByText(t));
+      const RED_0 = todos[0];
+      const RED_1 = todos[1];
+      const GRAY_2 = todos[2];
+      const GREEN_3 = todos[3];
 
-    expect(RED_0).toBeInTheDocument();
-    expect(RED_1).toBeInTheDocument();
-    expect(GRAY_2).toBeInTheDocument();
-    expect(GREEN_3).toBeInTheDocument();
+      return { RED_0, RED_1, GRAY_2, GREEN_3 };
+    };
+
+    // Check initial state
+    {
+      const { RED_0, RED_1, GRAY_2, GREEN_3 } = getTodos();
+      expect(RED_0).toBeInTheDocument();
+      expect(RED_1).toBeInTheDocument();
+      expect(GRAY_2).toBeInTheDocument();
+      expect(GREEN_3).toBeInTheDocument();
+    }
 
     // Filter by color
     const colorFilter = screen.getByTestId('color-filter');
     const redCheckbox = within(colorFilter).getByRole('checkbox', {
       name: 'color-filter-item-red',
     });
+    const grayCheckbox = within(colorFilter).getByRole('checkbox', {
+      name: 'color-filter-item-gray',
+    });
 
-    // await user.click(redCheckbox);
-    // expect(RED_0).toBeInTheDocument();
-    // expect(RED_1).toBeInTheDocument();
-    // expect(GRAY_2).not.toBeInTheDocument();
-    // expect(GREEN_3).not.toBeInTheDocument();
-
+    // Check after click red checkbox
     await user.click(redCheckbox);
+    {
+      const { RED_0, RED_1, GRAY_2, GREEN_3 } = getTodos();
+      expect(RED_0).toBeInTheDocument();
+      expect(RED_1).toBeInTheDocument();
+      expect(GRAY_2).not.toBeInTheDocument();
+      expect(GREEN_3).not.toBeInTheDocument();
+    }
+
+    // Check after click gray checkbox
+    await user.click(grayCheckbox);
+    {
+      const { RED_0, RED_1, GRAY_2, GREEN_3 } = getTodos();
+      expect(RED_0).toBeInTheDocument();
+      expect(RED_1).toBeInTheDocument();
+      expect(GRAY_2).toBeInTheDocument();
+      expect(GREEN_3).not.toBeInTheDocument();
+    }
+
+    // Check after click red checkbox again
+    await user.click(redCheckbox);
+    {
+      const { RED_0, RED_1, GRAY_2, GREEN_3 } = getTodos();
+      expect(RED_0).not.toBeInTheDocument();
+      expect(RED_1).not.toBeInTheDocument();
+      expect(GRAY_2).toBeInTheDocument();
+      expect(GREEN_3).not.toBeInTheDocument();
+    }
+
+    // Check after click gray checkbox again
+    await user.click(grayCheckbox);
+    {
+      const { RED_0, RED_1, GRAY_2, GREEN_3 } = getTodos();
+      expect(RED_0).toBeInTheDocument();
+      expect(RED_1).toBeInTheDocument();
+      expect(GRAY_2).toBeInTheDocument();
+      expect(GREEN_3).toBeInTheDocument();
+    }
 
     // Filter by status
     screen.getByTestId('status-filter');
