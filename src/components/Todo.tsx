@@ -1,7 +1,8 @@
 import { Button, Checkbox, Grid, Typography } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
-import ColorSwitch from './ColorSwitch';
+import { shallowEqual } from 'react-redux';
 import { useAppDispatch, useAppSelector } from '../store/hooks';
+import ColorSwitch from './ColorSwitch';
 import {
   selectTodoById,
   todoColorChanged,
@@ -15,7 +16,7 @@ interface TodoProps {
 
 const Todo = ({ id }: TodoProps) => {
   const dispatch = useAppDispatch();
-  const todo = useAppSelector(state => selectTodoById(state, id));
+  const todo = useAppSelector(state => selectTodoById(state, id), shallowEqual);
   if (!todo) {
     return null;
   }
