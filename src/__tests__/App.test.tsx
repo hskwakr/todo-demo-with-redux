@@ -211,6 +211,29 @@ describe('Happy path', () => {
     }
 
     // Filter by status
-    screen.getByTestId('status-filter');
+    const statusFilter = screen.getByTestId('status-filter');
+
+    const activeWrapper = within(statusFilter).getByTestId(
+      'status-filter-item-active'
+    );
+    const completedWrapper = within(statusFilter).getByTestId(
+      'status-filter-item-completed'
+    );
+    const allWrapper = within(statusFilter).getByTestId(
+      'status-filter-item-all'
+    );
+
+    const activeButton = within(activeWrapper).getByRole('button');
+    const completedButton = within(completedWrapper).getByRole('button');
+    const allButton = within(allWrapper).getByRole('button');
+
+    // Check after click active button
+    await user.click(activeButton);
+
+    // Check after click completed button
+    await user.click(completedButton);
+
+    // Check after click completed button
+    await user.click(allButton);
   });
 });

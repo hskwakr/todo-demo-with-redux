@@ -8,9 +8,10 @@ const StatusFilter = () => {
 
   const renderedItems = createRenderedItems((key, value) => {
     const selected = current === value;
+    const id = `status-filter-item-${value}`;
 
     return (
-      <Grid item key={key}>
+      <Grid item key={key} data-testid={id}>
         <Button disabled={selected} onClick={() => setCurrent(value)}>
           {key}
         </Button>
