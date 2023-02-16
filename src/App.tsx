@@ -1,27 +1,26 @@
-import { Box, Container, Stack, styled } from '@mui/material';
+import { Container, Grid } from '@mui/material';
 import TodoHeader from './components/TodoHeader';
 import './App.css';
 import TodoList from './components/TodoList';
 
-const Item = styled(Box)(() => ({}));
-
 const App = () => (
   <Container fixed>
-    <Stack
+    <Grid
+      container
       height="100vh"
       justifyContent="center"
       alignItems="center"
       direction="column"
       spacing={1}
     >
-      <Item>
+      <Grid item height="30%">
         <TodoHeader />
-      </Item>
+      </Grid>
 
-      <Item>
+      <Grid item height="50%">
         <TodoList />
-      </Item>
-    </Stack>
+      </Grid>
+    </Grid>
   </Container>
 );
 

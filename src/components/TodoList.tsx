@@ -31,7 +31,7 @@ const TodoList = () => {
           <hr />
         </Box>
 
-        <List sx={{ height: '300px', overflow: 'auto' }}>{Items}</List>
+        <List sx={{ overflow: 'auto' }}>{Items}</List>
       </Box>
     </Fade>
   );
