@@ -38,7 +38,9 @@ const Todo = ({ id }: TodoProps) => {
       </Grid>
 
       <Grid item xs={6}>
-        <Typography>{name}</Typography>
+        <Typography width="160px" overflow="hidden">
+          {name}
+        </Typography>
       </Grid>
 
       <Grid item xs={2}>

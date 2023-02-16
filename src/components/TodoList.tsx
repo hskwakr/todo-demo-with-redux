@@ -1,4 +1,4 @@
-import { Box, Fade } from '@mui/material';
+import { Box, Fade, List, ListItem } from '@mui/material';
 import ListTitle from './ListTitle';
 import Todo from './Todo';
 import { useAppSelector } from '../store/hooks';
@@ -8,9 +8,9 @@ const TodoList = () => {
   const todoIds = useAppSelector(selectFilteredTodoIds);
 
   const Items = todoIds.map(id => (
-    <div key={id} data-testid="todo-list-item">
+    <ListItem key={id} data-testid="todo-list-item">
       <Todo id={id} />
-    </div>
+    </ListItem>
   ));
 
   return (
@@ -19,18 +19,19 @@ const TodoList = () => {
         px="200px"
         py="50px"
         my="20px"
+        minWidth="350px"
         sx={{
           border: 'solid gray',
           borderRadius: '10px',
         }}
         data-testid="todo-list"
       >
-        <Box minWidth="300px">
+        <Box>
           <ListTitle ids={todoIds} />
           <hr />
         </Box>
 
-        <Box minWidth="300px">{Items}</Box>
+        <List sx={{ height: '300px', overflow: 'auto' }}>{Items}</List>
       </Box>
     </Fade>
   );
