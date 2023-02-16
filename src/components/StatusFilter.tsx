@@ -19,7 +19,7 @@ const StatusFilter = () => {
   });
 
   return (
-    <Grid container spacing={2}>
+    <Grid container spacing={2} data-testid="status-filter">
       {renderedItems}
     </Grid>
   );

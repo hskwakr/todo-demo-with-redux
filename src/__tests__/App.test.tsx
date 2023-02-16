@@ -95,4 +95,78 @@ describe('Happy path', () => {
     todos = screen.queryAllByTestId('a-todo');
     expect(todos.length).toEqual(0);
   });
+
+  test('Filter todo list', async () => {
+    const user = userEvent.setup();
+
+    renderWithProviders(<App />, {
+      preloadedState: {
+        todos: {
+          entities: {
+            '0': {
+              id: '0',
+              name: 'Test red 0',
+              color: 'red',
+              completed: false,
+            },
+            '1': {
+              id: '1',
+              name: 'Test red 1',
+              color: 'red',
+              completed: true,
+            },
+            '2': {
+              id: '2',
+              name: 'Test gray 2',
+              color: 'gray',
+              completed: false,
+            },
+            '3': {
+              id: '3',
+              name: 'Test green 3',
+              color: 'green',
+              completed: false,
+            },
+          },
+          ids: ['0', '1', '2', '3'],
+        },
+      },
+    });
+
+    const todoList = screen.getByTestId('todo-list');
+
+    const textList = [
+      'Test red 0',
+      'Test red 1',
+      'Test gray 2',
+      'Test green 3',
+    ];
+    const todos = textList.map(t => within(todoList).getByText(t));
+    const RED_0 = todos[0];
+    const RED_1 = todos[1];
+    const GRAY_2 = todos[2];
+    const GREEN_3 = todos[3];
+
+    expect(RED_0).toBeInTheDocument();
+    expect(RED_1).toBeInTheDocument();
+    expect(GRAY_2).toBeInTheDocument();
+    expect(GREEN_3).toBeInTheDocument();
+
+    // Filter by color
+    const colorFilter = screen.getByTestId('color-filter');
+    const redCheckbox = within(colorFilter).getByRole('checkbox', {
+      name: 'color-filter-item-red',
+    });
+
+    // await user.click(redCheckbox);
+    // expect(RED_0).toBeInTheDocument();
+    // expect(RED_1).toBeInTheDocument();
+    // expect(GRAY_2).not.toBeInTheDocument();
+    // expect(GREEN_3).not.toBeInTheDocument();
+
+    await user.click(redCheckbox);
+
+    // Filter by status
+    screen.getByTestId('status-filter');
+  });
 });

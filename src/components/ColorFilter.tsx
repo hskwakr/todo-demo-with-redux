@@ -2,22 +2,26 @@ import { Checkbox, Grid } from '@mui/material';
 import { colors } from '../utils/color';
 
 const ColorFilter = () => {
-  const renderedItems = colors.map(c => (
-    <Grid item key={c}>
-      <Checkbox
-        inputProps={{ 'aria-label': 'color-filter' }}
-        sx={{
-          color: c,
-          '&.Mui-checked': {
+  const renderedItems = colors.map(c => {
+    const id = `color-filter-item-${c}`;
+
+    return (
+      <Grid item key={c}>
+        <Checkbox
+          inputProps={{ 'aria-label': id }}
+          sx={{
             color: c,
-          },
-        }}
-      />
-    </Grid>
-  ));
+            '&.Mui-checked': {
+              color: c,
+            },
+          }}
+        />
+      </Grid>
+    );
+  });
 
   return (
-    <Grid container spacing={2}>
+    <Grid container spacing={2} data-testid="color-filter">
       {renderedItems}
     </Grid>
   );
